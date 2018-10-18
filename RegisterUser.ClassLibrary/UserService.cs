@@ -36,7 +36,7 @@ namespace RegisterUser.ClassLibrary
 
         private void SendNotification(User user)
         {
-            notificationService.SendNotification($"User {user} created");
+            notificationService.SendNotification($"User {user.Name} created");
         }
 
         private void Validate(User user)

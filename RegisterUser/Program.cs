@@ -13,16 +13,17 @@ namespace RegisterUser
             this.userService = userService;
         }
 
-        private void DisplayUsers()
+        private static IContainer ConfigureAutofac()
         {
-            var users = userService.GetUsers();
+            var builder = new ContainerBuilder();
 
-            Console.WriteLine("Number of users present in the system are: " + users.Count);
+            builder.RegisterType<UserService>().As<IUserService>();
+            builder.RegisterInstance(new EmailNotificationSender())
+                   .As<INotificationSender>();
+            builder.RegisterInstance(new UserValidator()).As<IValidator<User>>();
 
-            foreach (var user in users)
-            {
-                Console.WriteLine(user.ToString());
-            }
+            var container = builder.Build();
+            return container;
         }
 
         private static User GetUserFromConsole()
@@ -39,18 +40,18 @@ namespace RegisterUser
         {
             var container = ConfigureAutofac();
 
+            IUserService userService;
+
+            using (var scope = container.BeginLifetimeScope())
+            {
+                userService = scope.Resolve<IUserService>();
+            }
+
+            var program = new Program(userService);
+
             do
             {
                 Console.Clear();
-
-                IUserService userService;
-
-                using (var scope = container.BeginLifetimeScope())
-                {
-                    userService = scope.Resolve<IUserService>();
-                }
-
-                var program = new Program(userService);
 
                 program.DisplayUsers();
 
@@ -62,17 +63,16 @@ namespace RegisterUser
             } while (Console.ReadKey().KeyChar != 'n');
         }
 
-        private static IContainer ConfigureAutofac()
+        private void DisplayUsers()
         {
-            var builder = new ContainerBuilder();
+            var users = userService.GetUsers();
 
-            builder.RegisterType<UserService>().As<IUserService>();
-            builder.RegisterInstance(new EmailNotificationSender())
-                   .As<INotificationSender>();
-            builder.RegisterInstance(new UserValidator()).As<IValidator<User>>();
+            Console.WriteLine("Number of users present in the system are: " + users.Count);
 
-            var container = builder.Build();
-            return container;
+            foreach (var user in users)
+            {
+                Console.WriteLine(user.ToString());
+            }
         }
     }
 }
