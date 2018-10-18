@@ -36,14 +36,7 @@ namespace RegisterUser
 
         private static void Main()
         {
-            var builder = new ContainerBuilder();
-
-            builder.RegisterType<UserService>().As<IUserService>();
-            builder.RegisterInstance(new EmailNotificationService())
-                   .As<INotificationService>();
-            builder.RegisterInstance(new UserValidator()).As<IValidator<User>>();
-
-            var container = builder.Build();
+            var container = ConfigureAutofac();
 
             do
             {
@@ -66,6 +59,19 @@ namespace RegisterUser
 
                 Console.WriteLine("Do you want to continue (Y/N)? ");
             } while (Console.ReadKey().KeyChar != 'n');
+        }
+
+        private static IContainer ConfigureAutofac()
+        {
+            var builder = new ContainerBuilder();
+
+            builder.RegisterType<UserService>().As<IUserService>();
+            builder.RegisterInstance(new EmailNotificationService())
+                   .As<INotificationService>();
+            builder.RegisterInstance(new UserValidator()).As<IValidator<User>>();
+
+            var container = builder.Build();
+            return container;
         }
     }
 }
