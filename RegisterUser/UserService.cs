@@ -5,12 +5,14 @@ namespace RegisterUser
     internal class UserService : IUserService
     {
         private static readonly List<User> users = new List<User>();
-        private readonly INotificationService notificationService;
-        private readonly IValidator<User> validator = new UserValidator();
 
-        public UserService(INotificationService notificationService)
+        private readonly INotificationService notificationService;
+        private readonly IValidator<User> validator;
+
+        public UserService(INotificationService notificationService, IValidator<User> validator)
         {
             this.notificationService = notificationService;
+            this.validator = validator;
         }
 
         public List<User> GetUsers()

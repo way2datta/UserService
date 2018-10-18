@@ -24,7 +24,7 @@ namespace RegisterUser
         }
     }
 
-    public class CacheManager<TEntity>: CacheManager where TEntity : class 
+    public class CacheManager<TEntity> : CacheManager where TEntity : class
     {
         public static void AddItem(string key, TEntity item)
         {
@@ -39,7 +39,7 @@ namespace RegisterUser
             MemoryCache.Default.Set(key, item, policy);
         }
 
-        public static TEntity GetCachedItem(string key) 
+        public static TEntity GetCachedItem(string key)
         {
             return MemoryCache.Default[key] as TEntity;
         }

@@ -41,6 +41,7 @@ namespace RegisterUser
             builder.RegisterType<UserService>().As<IUserService>();
             builder.RegisterInstance(new EmailNotificationService())
                    .As<INotificationService>();
+            builder.RegisterInstance(new UserValidator()).As<IValidator<User>>();
 
             var container = builder.Build();
 

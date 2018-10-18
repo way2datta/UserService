@@ -2,11 +2,6 @@
 
 namespace RegisterUser
 {
-    interface IValidator<T> where T:class
-    {
-        void Validate(T entity);
-    }
-
     internal class UserValidator : IValidator<User>
     {
         public void Validate(User user)
