@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 
-namespace RegisterUser
+namespace RegisterUser.ClassLibrary
 {
-    internal class UserService : IUserService
+    public class UserService : IUserService
     {
         private static readonly List<User> users = new List<User>();
 
-        private readonly INotificationService notificationService;
+        private readonly INotificationSender notificationService;
         private readonly IValidator<User> validator;
 
-        public UserService(INotificationService notificationService, IValidator<User> validator)
+        public UserService(INotificationSender notificationService, IValidator<User> validator)
         {
             this.notificationService = notificationService;
             this.validator = validator;
@@ -36,7 +36,7 @@ namespace RegisterUser
 
         private void SendNotification(User user)
         {
-            notificationService.Notify($"User {user} created");
+            notificationService.SendNotification($"User {user} created");
         }
 
         private void Validate(User user)

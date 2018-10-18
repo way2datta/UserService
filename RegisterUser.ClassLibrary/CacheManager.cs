@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Caching;
 
-namespace RegisterUser
+namespace RegisterUser.ClassLibrary
 {
     public class CacheManager
     {

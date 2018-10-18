@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace RegisterUser
+namespace RegisterUser.ClassLibrary
 {
-    internal interface IUserService
+    public interface IUserService
     {
         List<User> GetUsers();
 

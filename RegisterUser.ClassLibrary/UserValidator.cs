@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace RegisterUser
+namespace RegisterUser.ClassLibrary
 {
-    internal class UserValidator : IValidator<User>
+    public class UserValidator : IValidator<User>
     {
         public void Validate(User user)
         {

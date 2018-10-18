@@ -1,11 +1,12 @@
 ﻿using System;
 using Autofac;
+using RegisterUser.ClassLibrary;
 
 namespace RegisterUser
 {
     internal class Program
     {
-        private IUserService userService;
+        private readonly IUserService userService;
 
         public Program(IUserService userService)
         {
@@ -66,8 +67,8 @@ namespace RegisterUser
             var builder = new ContainerBuilder();
 
             builder.RegisterType<UserService>().As<IUserService>();
-            builder.RegisterInstance(new EmailNotificationService())
-                   .As<INotificationService>();
+            builder.RegisterInstance(new EmailNotificationSender())
+                   .As<INotificationSender>();
             builder.RegisterInstance(new UserValidator()).As<IValidator<User>>();
 
             var container = builder.Build();

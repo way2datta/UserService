@@ -1,4 +1,4 @@
-﻿namespace RegisterUser
+﻿namespace RegisterUser.ClassLibrary
 {
     public class User
     {
