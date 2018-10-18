@@ -42,7 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CacheManager.cs" />
+    <Compile Include="EntityNotValid.cs" />
     <Compile Include="INotificationService.cs" />
     <Compile Include="IUserService.cs" />
     <Compile Include="IValidator.cs" />

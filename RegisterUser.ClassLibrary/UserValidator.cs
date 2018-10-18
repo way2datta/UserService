@@ -9,13 +9,13 @@ namespace RegisterUser.ClassLibrary
             if (string.IsNullOrEmpty(user.Email))
             {
                 var fieldIsRequiredMessage = ValidationMessages.GetFieldIsRequiredMessage(nameof(User.Email));
-                throw new Exception(fieldIsRequiredMessage);
+                throw new EntityNotValidException(fieldIsRequiredMessage);
             }
 
             if (string.IsNullOrEmpty(user.Name))
             {
                 var fieldIsRequiredMessage = ValidationMessages.GetFieldIsRequiredMessage(nameof(User.Name));
-                throw new Exception(fieldIsRequiredMessage);
+                throw new EntityNotValidException(fieldIsRequiredMessage);
             }
         }
     }
