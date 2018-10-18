@@ -1,12 +1,18 @@
 ﻿using System;
+using Autofac;
 
 namespace RegisterUser
 {
     internal class Program
     {
-        private static IUserService userService = new UserService();
+        private IUserService userService;
 
-        private static void DisplayUsers()
+        public Program(IUserService userService)
+        {
+            this.userService = userService;
+        }
+
+        private void DisplayUsers()
         {
             var users = userService.GetUsers();
 
@@ -30,15 +36,32 @@ namespace RegisterUser
 
         private static void Main()
         {
+            var builder = new ContainerBuilder();
+
+            builder.RegisterType<UserService>().As<IUserService>();
+            builder.RegisterInstance(new EmailNotificationService())
+                   .As<INotificationService>();
+
+            var container = builder.Build();
+
             do
             {
                 Console.Clear();
 
-                DisplayUsers();
+                IUserService userService;
+
+                using (var scope = container.BeginLifetimeScope())
+                {
+                    userService = scope.Resolve<IUserService>();
+                }
+
+                var program = new Program(userService);
+
+                program.DisplayUsers();
 
                 var userFromConsole = GetUserFromConsole();
 
-                userService.Register(userFromConsole);
+                program.userService.Register(userFromConsole);
 
                 Console.WriteLine("Do you want to continue (Y/N)? ");
             } while (Console.ReadKey().KeyChar != 'n');
