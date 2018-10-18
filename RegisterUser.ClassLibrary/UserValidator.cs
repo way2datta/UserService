@@ -8,12 +8,14 @@ namespace RegisterUser.ClassLibrary
         {
             if (string.IsNullOrEmpty(user.Email))
             {
-                throw new Exception("Users email is required.");
+                var fieldIsRequiredMessage = ValidationMessages.GetFieldIsRequiredMessage(nameof(User.Email));
+                throw new Exception(fieldIsRequiredMessage);
             }
 
             if (string.IsNullOrEmpty(user.Name))
             {
-                throw new Exception("Users name is required.");
+                var fieldIsRequiredMessage = ValidationMessages.GetFieldIsRequiredMessage(nameof(User.Name));
+                throw new Exception(fieldIsRequiredMessage);
             }
         }
     }
